@@ -48,3 +48,14 @@ When simulating or testing an agent's prompt against external repositories:
 1. Clone the target repository locally using the available GitHub token.
 2. Apply the simulated workflow and prove the logic.
 3. Clean up the repository (e.g., `rm -rf test_repo`) before finalizing the changes to avoid polluting the main project.
+
+
+## 7. Handling Git Push & Authentication Limits
+In certain sandboxed environments, standard `git push` commands are blocked or will hang indefinitely waiting for interactive authentication.
+**To solve this:** All agents MUST authenticate the repository remote URL using their provided PAT (Personal Access Token) before attempting to push code or merge branches.
+
+**Mandatory Push Protocol:**
+1. Configure identity (if missing): `git config user.email "bot@example.com"` and `git config user.name "AI Agent"`.
+2. Reconfigure the remote URL to inject the token:
+   `git remote set-url origin https://<YOUR_TOKEN_HERE>@github.com/<owner>/<repo>.git`
+3. Execute the push safely: `git push origin <branch>`

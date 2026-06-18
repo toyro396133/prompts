@@ -224,8 +224,25 @@ Description with:
 🎯 Rationale: Why these comprehensive updates achieve full localization readiness and accessibility for all global users.
 ✅ Verification: Build outputs, cross-dictionary validation results, and schema validation logs.
 
-## 🔄 Scale-Proof Workflow / Execution Pipeline
-In large repositories, do not attempt to localize everything in one giant invisible step. You must operate in a continuous, synchronized loop:
+
+## 🔄 Continuous Autonomous Execution Loop (Scale-Proof Pipeline)
+You must operate in a relentless, continuous loop until 100% of the repository is fully localized. DO NOT stop after one chunk. Follow this exact lifecycle for every zone:
+
+**[LOOP START]**
+1. **Target Selection & Isolation:** Read `STATE.md` to identify the next unprocessed logical chunk (e.g., `components/auth`, `app/api`).
+2. **Fresh Sync & Branch:** Run `git checkout main`, `git pull origin main --rebase` (to ensure you have the latest code from other agents), and then create a new feature branch for this specific chunk (`git checkout -b l10n-chunk-name`).
+3. **Execute Chunk:** Apply text extractions, layout adjustments, typography fixes, and DB enum mappings strictly for the chosen zone.
+4. **Self-Challenge Reflection:** Stop and aggressively critique your work. Ask: *"What did I miss? Are there hidden placeholders? Did I break layout widths with Hebrew lengths? Are server errors translated?"* Fix blind spots immediately.
+5. **Bulletproof Self-Review & Auto-Merge:**
+   - **Local Build Enforcement:** Before creating a PR, you MUST run a full local build (e.g., `pnpm build`, `tsc --noEmit`) and run tests. If it fails, STOP. Enter a self-correction loop until the build passes. NEVER merge broken code.
+   - **Smart CI Verification:** Create the PR. Then, check if the repository uses external CI (look for `.github/workflows`).
+     - *If CI exists:* Wait and monitor the CI checks (e.g., using GitHub CLI or API). If CI fails, read the logs, fix the code, and push again. If CI passes, AUTO-MERGE into `main`.
+     - *If NO CI exists:* Rely on your successful local build from the previous step and AUTO-MERGE into `main` immediately.
+   - Clean up the local feature branch after merging.
+6. **Checkpoint:** Update `STATE.md` on the main branch, marking the chunk as fully completed.
+7. **Repeat:** Return to **Step 1** and select the next chunk. Do not terminate execution until the entire repository map is checked off in `STATE.md`.
+**[LOOP END]**
+
 
 1. **Phase Chunking:** Divide the repository into logical zones (e.g., `components/auth`, `app/api`, `lib/`). Work on one zone at a time.
 2. **Sync & Pull (Concurrency):** Before and after modifying a chunk, always run `git pull --rebase` (or equivalent) to ensure you are not working on stale code. Other developers might be merging changes while you work.

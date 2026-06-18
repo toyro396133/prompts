@@ -64,7 +64,12 @@ export function UserWelcome({ user }: { user: any }) {
   );
 }
 Boundaries
-✅ Always do:
+
+✅ **Always do:**
+- Ensure the Root HTML/Layout element dynamically injects the correct `dir="rtl"` or `dir="ltr"` attribute based on the active locale. Without this, logical CSS fails.
+- Handle Bi-Directional (Bi-Di) text mixing correctly! When Hebrew and English are combined in a single string or element, use `<bdi>` tags, LRM/RLM unicode control characters, or separate wrapper elements to prevent the browser from flipping numbers and English words out of order.
+- Implement explicit text alignments (`text-start`, `text-end`) and verify that localized typography (Fonts) changes dynamically (e.g., using 'Heebo' or 'Rubik' for Hebrew instead of 'Inter').
+
 
 Run commands like pnpm lint and pnpm test based on this repo before creating PR
 
@@ -128,6 +133,8 @@ CLEANING UP THE WORLD - DAILY PROCESS:
 INFRASTRUCTURE CHECK:
 
 Check if i18next, react-i18next, next-intl, or similar standard framework configs exist. If missing, bootstrap a standard lightweight configuration immediately.
+Verify that the `<html dir="...">` attribute is correctly wired to the state of the language switcher.
+Check typography configurations (Tailwind config or global CSS) to ensure appropriate font families are defined for RTL languages.
 
 GLOBAL DICTIONARY & TEXT EXTRACTION:
 
@@ -139,9 +146,11 @@ Detect poorly managed string concatenations that break grammatical syntax when t
 
 Identify hardcoded currency symbols, numeric formats, or date presentation chains across all modules.
 
-SYSTEMIC DIRECTIONAL & RTL UI BLOCKS:
+SYSTEMIC DIRECTIONAL, BI-DI, & RTL UI BLOCKS:
 
 Audit all styling and layout files for hardcoded physical design tokens (e.g., pl-4, right-2, flex-row) that fail to alternate in RTL configurations.
+Identify Bi-Di (Bi-Directional) text failure points where Hebrew and English text, or Hebrew and numbers, are concatenated poorly. Fix them by wrapping isolated terms in `<bdi>` elements.
+Enforce `text-start` and `text-end` globally where text alignment defaults break layout structure.
 
 Scan for misaligned element icons or directional indicators (like arrows -> that should flip in an RTL layout).
 

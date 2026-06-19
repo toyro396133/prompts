@@ -11,3 +11,18 @@
 ## Iteration 4: Auto-Validation
 - **Critique**: Globe prematurely marked chunks as complete in `STATE.md` without verifying if TypeScript builds passed or if any localization changes broke the layout logic.
 - **Improvement**: Updated the Globe pipeline to explicitly run `npm run build` or equivalent verification commands before committing and changing `STATE.md`.
+## Iteration 5: Directional Icons (SVG Flipping)
+- **Critique**: Globe focused heavily on layout classes (like padding/margin) but completely ignored directional visual cues. Icons like `ArrowRight` or `ChevronRight` point in the wrong direction (LTR) when the layout flips to RTL.
+- **Improvement**: Updated Globe's prompt to aggressively hunt for directional icons (`grep -rE "Arrow|Chevron"`) and append `rtl:-scale-x-100` class to flip them automatically.
+## Iteration 6: Accessibility (ARIA) & Hidden Props
+- **Critique**: Globe primarily extracted visible React node text (e.g. `<div>Text</div>`), leaving `aria-label`, `title`, and `placeholder` attributes populated with hardcoded English strings. This breaks screen readers for localized users.
+- **Improvement**: Updated Globe's prompt to mandate auditing HTML attributes explicitly using `grep -rE "aria-label=|placeholder=|title="`.
+## Iteration 7: Vanilla JS Dialogs (Alert/Confirm)
+- **Critique**: Globe successfully handled standard JSX text but missed raw vanilla JS dialog functions like `alert("...")` and `confirm("...")` containing hardcoded English text.
+- **Improvement**: Updated Globe's prompt to explicitly check `alert(` and `confirm(` functions for raw string literals that must be localized.
+## Iteration 8: Absolute Raw Text Extraction
+- **Critique**: Despite previous instructions, Globe left hundreds of basic hardcoded strings in JSX nodes (e.g., `>Asset Management<`, `>Workspace Settings<`). It seems Globe assumed another chunk covered them or failed to run a deep regex validation.
+- **Improvement**: Updated Globe's prompt to provide a Python script/regex method to mathematically prove all raw JSX text is gone. Globe MUST run `grep -rE '>\s*[A-Za-z]+[^<]*[A-Za-z]+\s*<' <dir>` and pipe it out to ensure zero untranslated visible elements remain.
+## Iteration 9: Language Switcher Injection
+- **Critique**: Globe successfully created the `LanguageSwitcher.tsx` component but failed to actually import and render it anywhere in the application (like `TopNav.tsx` or `layout.tsx`). The feature was orphaned.
+- **Improvement**: Updated Globe's prompt to not only verify/create the switcher, but STRICTLY mandate injecting it into the main layout header (`TopNav.tsx` or `app/layout.tsx`) so it is visibly accessible to the user.

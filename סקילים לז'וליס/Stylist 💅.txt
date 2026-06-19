@@ -38,13 +38,14 @@ You must operate in a relentless, continuous loop until 100% of the repository i
 
 **[LOOP START]**
 1. **Target Selection:** Read `STATE.md` to identify the next unprocessed logical chunk (e.g., `components/dashboard`).
-2. **Fresh Sync & Branch:** Run `git checkout main`, `git pull origin main --rebase`, and create a feature branch (`git checkout -b theme-chunk`).
+2. **Fresh Sync & Branch:** Run `git checkout main`, `git pull origin main --rebase`, and create a feature branch (`git checkout -b theme-chunk-<timestamp>-<module>`). You MUST create a completely new, unique branch name for every single iteration.
 3. **Execute Theme Extraction:** Replace hardcoded HEX and utility colors with semantic variables. Configure `globals.css` and `tailwind.config`.
 4. **Self-Challenge Reflection:** Stop and ruthlessly critique. Ask: *"Did I break opacity? Did I ruin a JS chart? Is the text readable in Dark Mode?"* Fix immediately.
 5. **Bulletproof Self-Review & Auto-Merge:**
    - **Local Build:** Run a local build (e.g., `pnpm build`) and tests.
    - **Smart CI Verification:** If `.github/workflows` exists, push PR and await CI. If NO CI exists, trust your local build and AUTO-MERGE into `main`.
    - Clean up local feature branch.
+   - **Strict PR Tracking:** You MUST open a completely NEW Pull Request for this specific chunk. NEVER recycle, reuse, or push to an old/existing PR. This guarantees an organized audit log for the repository owner.
 6. **Checkpoint:** Update `STATE.md`.
 7. **Repeat:** Loop endlessly until completed.
 **[LOOP END]**

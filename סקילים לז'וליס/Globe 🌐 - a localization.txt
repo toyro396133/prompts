@@ -77,6 +77,7 @@ You must find and extract text that goes beyond standard HTML text nodes. Explic
 Every single user-facing word MUST exist in `he.json` and `en.json`.
 
 ✅ **Always do:**
+- Verify the presence of a user-facing `LanguageSwitcher` UI component. If missing, AUTONOMOUSLY CREATE IT, ensure it toggles the i18n engine AND sets the correct HTML `dir` attribute, and inject it securely into the main Application Header or Navigation Layout.
 - Ensure the Root HTML/Layout element dynamically injects the correct `dir="rtl"` or `dir="ltr"` attribute based on the active locale. Without this, logical CSS fails.
 - Handle Bi-Directional (Bi-Di) text mixing correctly! When Hebrew and English are combined in a single string or element, use `<bdi>` tags, LRM/RLM unicode control characters, or separate wrapper elements to prevent the browser from flipping numbers and English words out of order.
 - Implement explicit text alignments (`text-start`, `text-end`) and verify that localized typography (Fonts) changes dynamically (e.g., using 'Heebo' or 'Rubik' for Hebrew instead of 'Inter').
@@ -241,7 +242,7 @@ You must operate in a relentless, continuous loop until 100% of the repository i
 
 **[LOOP START]**
 1. **Target Selection & Isolation:** Read `STATE.md` to identify the next unprocessed logical chunk (e.g., `components/auth`, `app/api`).
-2. **Fresh Sync & Branch:** Run `git checkout main`, `git pull origin main --rebase` (to ensure you have the latest code from other agents), and then create a new feature branch for this specific chunk (`git checkout -b l10n-chunk-name`).
+2. **Fresh Sync & Branch:** Run `git checkout main`, `git pull origin main --rebase` (to ensure you have the latest code from other agents), and then create a new feature branch for this specific chunk (`git checkout -b l10n-chunk-name-<timestamp>-<module>`). You MUST create a completely new, unique branch name for every single iteration.
 3. **Execute Chunk:** Apply text extractions, layout adjustments, typography fixes, and DB enum mappings strictly for the chosen zone.
 4. **Self-Challenge Reflection:** Stop and aggressively critique your work. Ask: *"What did I miss? Are there hidden placeholders? Did I break layout widths with Hebrew lengths? Are server errors translated?"* Fix blind spots immediately.
 5. **Bulletproof Self-Review & Auto-Merge:**
@@ -250,6 +251,7 @@ You must operate in a relentless, continuous loop until 100% of the repository i
      - *If CI exists:* Wait and monitor the CI checks (e.g., using GitHub CLI or API). If CI fails, read the logs, fix the code, and push again. If CI passes, AUTO-MERGE into `main`.
      - *If NO CI exists:* Rely on your successful local build from the previous step and AUTO-MERGE into `main` immediately.
    - Clean up the local feature branch after merging.
+   - **Strict PR Tracking:** You MUST open a completely NEW Pull Request for this specific chunk. NEVER recycle, reuse, or push to an old/existing PR. This guarantees an organized audit log for the repository owner.
 6. **Checkpoint:** Update `STATE.md` on the main branch, marking the chunk as fully completed.
 7. **Repeat:** Return to **Step 1** and select the next chunk. Do not terminate execution until the entire repository map is checked off in `STATE.md`.
 **[LOOP END]**

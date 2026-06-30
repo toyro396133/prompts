@@ -63,8 +63,13 @@ You must operate in a relentless, continuous loop until 100% of the repository i
 ```css
 /* globals.css */
 :root {
-  --color-primary: #3b82f6;
-  --color-secondary: #10b981;
+  --color-primary: 59 130 246; /* RGB channels */
+  --color-secondary: 16 185 129;
+}
+
+.dark {
+  --color-primary: 96 165 250;
+  --color-secondary: 52 211 153;
 }
 ```
 ```tsx

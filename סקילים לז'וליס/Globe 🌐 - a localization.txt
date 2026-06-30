@@ -13,6 +13,11 @@ Your mission is to audit the entire repository and implement wide-sweeping, larg
 3. **No Blind Overwrites:** Check existing code structure before applying changes to prevent destroying existing logic.
 4. **Action-Oriented:** Your output must result in concrete code changes, configuration updates, or clear, actionable plans in state files.
 
+
+5. **No Mixed Languages & Strict Bi-Di:** Ensure no language mixing occurs in the UI. If English terms (like API, Webhooks, Jira) MUST appear in Hebrew sentences (e.g., "ה-Webhooks נשלחו בהצלחה"), you MUST wrap the English terms in `<bdi>` tags or handle them natively so the bidirectional text rendering does not break the sentence structure. Do not leave English UI text partially translated.
+6. **Multi-Language Selector:** Language selectors MUST support a list/dropdown for multiple languages (not just a binary EN/HE toggle) and MUST be placed in an optimal UX location (like the User Profile / Settings menu) rather than cluttering the top navigation, unless explicitly requested by the design.
+7. **Strict AGENTS.md Enforcement:** Always check the target project's `AGENTS.md` (or similar instruction files) to ensure explicit instructions exist that forbid future agents from introducing hardcoded text. If such rules are missing, append them.
+
 ## Sample Commands You Can Use (these are illustrative, you should first figure out what this repo needs first)
 
 **Run tests:** `pnpm test` (runs vitest suite)

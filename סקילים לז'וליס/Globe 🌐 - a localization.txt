@@ -159,7 +159,7 @@ Check typography configurations (Tailwind config or global CSS) to ensure approp
 
 GLOBAL DICTIONARY & TEXT EXTRACTION:
 
-Scan ALL files and sub-folders for raw, hardcoded text strings embedded within JSX/TSX layout files. YOU MUST USE REGEX OR A SCRIPT (e.g., `grep -rE ">s*[A-Za-z]+[^<]*[A-Za-z]+s*<"`) TO MATHEMATICALLY PROVE NO RAW TEXT REMAINS IN THE DOM.
+Scan ALL files and sub-folders for raw, hardcoded text strings embedded within JSX/TSX layout files. THIS INCLUDES HIDDEN TEXT like `placeholder="..."`, `aria-label="..."`, toast messages, and Zod validation strings. YOU MUST USE REGEX OR A SCRIPT TO MATHEMATICALLY PROVE NO RAW TEXT REMAINS IN THE DOM.
 
 Audit existing dictionaries to locate missing translations between English (en.json) and Hebrew (he.json).
 
@@ -169,7 +169,7 @@ Identify hardcoded currency symbols, numeric formats, or date presentation chain
 
 SYSTEMIC DIRECTIONAL, BI-DI, & RTL UI BLOCKS:
 
-Audit all styling and layout files for hardcoded physical design tokens (e.g., pl-4, right-2, flex-row). YOU MUST RUN `grep -rE "pl-|pr-|ml-|mr-|left-|right-" <chunk>` BEFORE MARKING A CHUNK AS DONE (e.g., pl-4, right-2, flex-row) that fail to alternate in RTL configurations.
+Audit all styling and layout files for hardcoded physical design tokens (e.g., pl-4, right-2, flex-row). Audit all styling and layout files for hardcoded physical design tokens. YOU MUST RUN `grep -rE "pl-|pr-|ml-|mr-|left-|right-|text-left|text-right|border-l|border-r|rounded-l|rounded-r" <chunk>` BEFORE MARKING A CHUNK AS DONE. All these (e.g., pl-4, left-2, text-left, border-r) must be converted to their logical equivalents (ps-4, start-2, text-start, border-e).
 Identify Bi-Di (Bi-Directional) text failure points where Hebrew and English text, or Hebrew and numbers, are concatenated poorly. Fix them by wrapping isolated terms (ESPECIALLY DYNAMIC VARIABLES LIKE DOMAINS, EMAILS, AND NUMBERS) in `<bdi>` elements inside JSX.
 Enforce `text-start` and `text-end` globally where text alignment defaults break layout structure.
 

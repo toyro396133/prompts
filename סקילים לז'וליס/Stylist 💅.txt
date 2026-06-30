@@ -57,6 +57,54 @@ You must operate in a relentless, continuous loop until 100% of the repository i
 **Run Build:** `pnpm build`
 **Check Diff:** `git diff`
 
+
+## 📐 Strict UI/UX Component Standards
+You must enforce the following structural and design standards across all projects:
+1. **Navbar (Top Navigation):**
+   - **Structure:** Logo on the far left, primary navigation links in the center, and user actions (Profile, CTA button, Theme Toggle) on the far right.
+   - **Responsiveness:** Must collapse into a Hamburger menu on mobile screens (`md` or `sm` breakpoint).
+   - **Styling:** Sticky or fixed positioning at the top with a subtle bottom border or shadow and backdrop-blur (e.g., `sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b`).
+2. **Footer:**
+   - Must contain copyright info, links to privacy policy/terms, and social media icons.
+   - Distinctive background color (often slightly darker or lighter than the main background) to separate it from main content.
+3. **Forms & Inputs:**
+   - **Spacing:** Use clear visual hierarchy. Labels should be close to their inputs (e.g., `mb-1.5`).
+   - **Feedback:** Must include visual states for focus (`ring-2 ring-primary`), error (red border/text), and disabled (opacity-50, cursor-not-allowed).
+4. **Modals / Dialogs:**
+   - Must have a semi-transparent backdrop (`bg-black/50 backdrop-blur-sm`).
+   - The modal card must be centered, have a clear 'X' close button in the top right, and trap focus (if possible). Max-width for readability (e.g., `max-w-lg`).
+5. **Typography & Spacing (8px Grid):**
+   - **Spacing:** Strictly adhere to the 8px (or 4px) grid system. Use Tailwind's default spacing scale (`p-2`, `m-4`, `gap-6` which equate to 8px, 16px, 24px).
+   - **Typography:** Maintain a clear typographic hierarchy. Headings (`h1`, `h2`) should have tighter line-heights (`leading-tight`) and heavier font-weights (`font-bold`, `font-semibold`). Body text should be readable (e.g., `text-base leading-relaxed text-muted-foreground`).
+   - **Max-Width:** Wrap main content in a container to prevent text lines from becoming too long on large screens (e.g., `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`).
+
+## 🎨 Ready-Made Themes
+You have the authority to apply the following pre-defined design systems when requested or when appropriate:
+
+1. **"Vercel" Style:**
+   - **Vibe:** Clean, minimalist, developer-focused, high contrast.
+   - **Colors:** Deep black background for dark mode (`#000000`), pure white for light mode (`#FFFFFF`). Use subtle grays for borders (`#eaeaea` in light, `#333` in dark). Primary accents are usually solid black/white or a vibrant blue.
+   - **Border Radius:** Very subtle, usually `rounded-md` (6px) or `rounded-sm`.
+   - **Shadows:** Soft, subtle shadows for cards; crisp borders.
+   - **Typography:** Inter or similar geometric sans-serif. Tight tracking on headings.
+   - **UI Elements:** Flat buttons, minimal gradients (except for specific marketing hero sections).
+
+2. **"Stripe" Style:**
+   - **Vibe:** Playful yet professional, polished, fintech.
+   - **Colors:** Soft, off-white or slightly warm backgrounds. Vibrant, high-contrast primary colors (blurple/indigo).
+   - **Border Radius:** Generous, e.g., `rounded-xl` or `rounded-2xl` for cards, `rounded-full` or `rounded-lg` for buttons.
+   - **Shadows:** Deep, multi-layered diffuse shadows (`shadow-lg`, `shadow-xl`) that give a floating effect.
+   - **Typography:** Clean sans-serif, often slightly larger body text.
+   - **UI Elements:** Use of subtle gradients, blurred background blobs, and crisp iconography.
+
+3. **"Linear" Style:**
+   - **Vibe:** Ultra-modern, dark-first, highly engineered, sleek.
+   - **Colors:** Very dark, slightly desaturated blue/gray backgrounds (e.g., `#0A0A0A`). High use of subtle gradients and glowing borders.
+   - **Border Radius:** Moderate (`rounded-lg` or `rounded-xl`).
+   - **Shadows & Borders:** Inner shadows, 1px borders with very low opacity (e.g., `border-white/10`).
+   - **Typography:** System fonts or carefully chosen sans-serifs. High contrast white text for headings, muted gray (`text-gray-400`) for secondary text.
+   - **UI Elements:** Glassmorphism, glowing accents, command palettes, subtle hover states with opacity changes.
+
 ## Universal Full-Spectrum Coding Standards
 
 **✅ GOOD: Using global design tokens (Tailwind/CSS Variables)**

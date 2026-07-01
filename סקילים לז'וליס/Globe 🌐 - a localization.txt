@@ -13,6 +13,11 @@ Your mission is to audit the entire repository and implement wide-sweeping, larg
 3. **No Blind Overwrites:** Check existing code structure before applying changes to prevent destroying existing logic.
 4. **Action-Oriented:** Your output must result in concrete code changes, configuration updates, or clear, actionable plans in state files.
 
+
+5. **No Mixed Languages & Strict Bi-Di:** Ensure no language mixing occurs in the UI. If English terms (like API, Webhooks, Jira) MUST appear in Hebrew sentences (e.g., "ה-Webhooks נשלחו בהצלחה"), you MUST wrap the English terms in `<bdi>` tags or handle them natively so the bidirectional text rendering does not break the sentence structure. Do not leave English UI text partially translated.
+6. **Multi-Language Selector:** Language selectors MUST support a list/dropdown for multiple languages (not just a binary EN/HE toggle) and MUST be placed in an optimal UX location (like the User Profile / Settings menu) rather than cluttering the top navigation, unless explicitly requested by the design.
+7. **Strict AGENTS.md Enforcement:** Always check the target project's `AGENTS.md` (or similar instruction files) to ensure explicit instructions exist that forbid future agents from introducing hardcoded text. If such rules are missing, append them.
+
 ## Sample Commands You Can Use (these are illustrative, you should first figure out what this repo needs first)
 
 **Run tests:** `pnpm test` (runs vitest suite)
@@ -159,7 +164,7 @@ Check typography configurations (Tailwind config or global CSS) to ensure approp
 
 GLOBAL DICTIONARY & TEXT EXTRACTION:
 
-Scan ALL files and sub-folders for raw, hardcoded text strings embedded within JSX/TSX layout files. YOU MUST USE REGEX OR A SCRIPT (e.g., `grep -rE ">s*[A-Za-z]+[^<]*[A-Za-z]+s*<"`) TO MATHEMATICALLY PROVE NO RAW TEXT REMAINS IN THE DOM.
+Scan ALL files and sub-folders for raw, hardcoded text strings embedded within JSX/TSX layout files. THIS INCLUDES HIDDEN TEXT like `placeholder="..."`, `aria-label="..."`, toast messages, and Zod validation strings. YOU MUST USE REGEX OR A SCRIPT TO MATHEMATICALLY PROVE NO RAW TEXT REMAINS IN THE DOM.
 
 Audit existing dictionaries to locate missing translations between English (en.json) and Hebrew (he.json).
 
@@ -169,7 +174,7 @@ Identify hardcoded currency symbols, numeric formats, or date presentation chain
 
 SYSTEMIC DIRECTIONAL, BI-DI, & RTL UI BLOCKS:
 
-Audit all styling and layout files for hardcoded physical design tokens (e.g., pl-4, right-2, flex-row). YOU MUST RUN `grep -rE "pl-|pr-|ml-|mr-|left-|right-" <chunk>` BEFORE MARKING A CHUNK AS DONE (e.g., pl-4, right-2, flex-row) that fail to alternate in RTL configurations.
+Audit all styling and layout files for hardcoded physical design tokens (e.g., pl-4, right-2, flex-row). Audit all styling and layout files for hardcoded physical design tokens. YOU MUST RUN `grep -rE "pl-|pr-|ml-|mr-|left-|right-|text-left|text-right|border-l|border-r|rounded-l|rounded-r" <chunk>` BEFORE MARKING A CHUNK AS DONE. All these (e.g., pl-4, left-2, text-left, border-r) must be converted to their logical equivalents (ps-4, start-2, text-start, border-e).
 Identify Bi-Di (Bi-Directional) text failure points where Hebrew and English text, or Hebrew and numbers, are concatenated poorly. Fix them by wrapping isolated terms (ESPECIALLY DYNAMIC VARIABLES LIKE DOMAINS, EMAILS, AND NUMBERS) in `<bdi>` elements inside JSX.
 Enforce `text-start` and `text-end` globally where text alignment defaults break layout structure.
 
